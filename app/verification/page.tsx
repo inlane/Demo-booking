@@ -1,9 +1,9 @@
 "use client";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
 
-export default function VerificationPage() {
+function VerificationContent() {
   const params = useSearchParams();
 
   const [phoneOtp, setPhoneOtp] = useState("");
@@ -173,5 +173,13 @@ export default function VerificationPage() {
         Proceed to Payment
       </button>
     </div>
+  );
+}
+
+export default function VerificationPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <VerificationContent />
+    </Suspense>
   );
 }

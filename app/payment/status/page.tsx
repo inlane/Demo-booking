@@ -1,4 +1,5 @@
-"use client";
+"use client"
+import { Suspense } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from 'next/navigation';
@@ -66,7 +67,7 @@ async function verifyPaymentStatus(
   }
 }
 
-export default function PaymentStatus() {
+function PaymentStatusContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -80,4 +81,12 @@ export default function PaymentStatus() {
   }, [paymentResponse, router]);
 
   return null;
+}
+
+export default function PaymentStatus() {
+  return (
+    <Suspense fallback={null}>
+      <PaymentStatusContent />
+    </Suspense>
+  );
 }
